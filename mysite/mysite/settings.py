@@ -27,17 +27,23 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1 # added
+
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
+INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'django.contrib.admin',
+    'myapp.apps.MyappConfig',
+    #'south',
+    #'markdown_deux',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +60,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/Users/eshaankapur/django/project2/mysite/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +73,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = [
+    '/Users/eshaankapur/django/project2/mysite/templates/'
+]   # added
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -74,9 +84,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default': { 
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'tempdb',                     
+        'USER': 'root',
+        'PASSWORD': '123',
     }
 }
 
@@ -112,6 +124,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # added
 
 
 # Static files (CSS, JavaScript, Images)
